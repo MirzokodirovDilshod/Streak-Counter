@@ -1,5 +1,21 @@
 .nav-bar {
-    color: aliceblue;
-    display: flexbox;
-    background-color: aquamarine;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    background-color: crimson;
+}
+
+.nav-buttons {
+    display:flex;
+    gap: 3em;
+}
+
+.nav-buttons button {
+    padding: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(112, 7, 224);
+    width: 200px;
+    height: 50px;
 }
