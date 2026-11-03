@@ -19,3 +19,13 @@
     width: 200px;
     height: 50px;
 }
+
+#central_word {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    height: 20px;
+    font-size: 5em;
+    color: rgb(195, 0, 255);
+    font-weight: bold;
+}
