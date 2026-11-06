@@ -36,29 +36,75 @@
                     <p>Practice Listening</p>
                 </div>
         
-            <!-- ================= FRIENDS ================= -->
-    <table id="table" >
-        <tr>
-            <th>FRIENDS</th>
-            <th>BEST STREAKS</th>
-            <th>CURRENT-STREAK</th>
-        </tr>
-        <!--INNER-->
-        <tr>
-            <td>Adam M.</td>
-            <td>Jonny D.</td>
-            <td>David M.</td>
-        </tr>
-        <tr>
-            <td>32</td>
-            <td>12</td>
-            <td>32</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-    </table>
+    <!-- ================= FRIENDS ================= -->
+    <section id="friends">
+        <div class="section-title">FRIENDS</div>
+
+        <table class="friends-table">
+            <!-- Python shu qatorlarni takrorlab yaratadi -->
+            <tr>
+                <td class="friend-name"><span class="pfp">PFP</span>Adam Smasher</td>
+                <td>Best streak 16</td>
+                <td>Current streak 13</td>
+            </tr>
+            <tr>
+                <td class="friend-name"><span class="pfp">PFP</span>Johnny Silverhand</td>
+                <td>Best streak 17</td>
+                <td>Current streak 10</td>
+            </tr>
+            <tr>
+                <td class="friend-name"><span class="pfp">PFP</span>David M.</td>
+                <td>Best streak 36</td>
+                <td>Current streak 36</td>
+            </tr>
+        </table>
+
+        <div class="friend-codes">
+            <div class="code-box">
+                <h3>Add Friend</h3>
+                <input type="text" id="friend_code_input" placeholder="ABCD-1234-XXXX">
+                <button>Add</button>
+            </div>
+            <div class="code-box">
+                <h3>Your friend code</h3>
+                <div id="my_friend_code" class="code-value">ABCD-9895-XXXX</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PROFILE ================= -->
+    <section id="profile">
+        <div class="section-title">PROFILE</div>
+
+        <div class="profile-content">
+            <div class="avatar-side">
+                <div class="avatar">PFP</div>
+                <button>Change Avatar</button>
+            </div>
+
+            <div class="settings-side">
+                <div class="setting-row">
+                    <span>Email</span>
+                    <span id="user_email">example@gmail.com</span>
+                </div>
+                <div class="setting-row">
+                    <span>Username</span>
+                    <span id="user_name">Mr Freedom <button>Edit</button></span>
+                </div>
+                <div class="setting-row">
+                    <span>Notifications</span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+                <div class="setting-row">
+                    <span>Sounds</span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+                <div class="setting-row">
+                    <span>Music</span>
+                    <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
