@@ -1,7 +1,6 @@
-from django.http import HttpResponse
+from django.shortcuts import render   
 from .models import Counter
-# Create your views here.
+
 def home(request):
-    counts = Counter.objects.all()
-    names = [c.title for c in counts]
-    return HttpResponse(",".join(names))
+    counters = Counter.objects.all()  
+    return render(request, 'streaks/home.html', {'counters': counters})
