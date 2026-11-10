@@ -4,3 +4,8 @@
     <li>{{ c.title }}: {{ c.current_streak }}</li>
   {% endfor %}
 </ul>
+
+{% if quote %}
+  <p>{{ quote.text }}</p>
+  <p>{{ quote.author }}</p>
+{% endif %}
