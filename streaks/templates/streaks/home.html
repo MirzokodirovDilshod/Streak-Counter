@@ -7,6 +7,12 @@
   {% endfor %}
 </ul>
 
+<form action="{% url 'add_counter' %}" method="post">  
+  {% csrf_token %}
+  <input type="text" name='title'>    
+  <button type="submit">Qo'shish</button>
+</form>
+
 {% if quote %}
   <p>{{ quote.text }}</p>
   <p>{{ quote.author }}</p>

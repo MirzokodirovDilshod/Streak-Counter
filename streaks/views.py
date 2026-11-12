@@ -12,3 +12,9 @@ def done(request, counter_id):
     counter = get_object_or_404(Counter, id=counter_id)
     counter.mark_done()
     return redirect('home')
+
+def add_counter(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        Counter.objects.create(title=title)
+    return redirect('home')
