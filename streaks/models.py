@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User   # Django'ning tayyor foydalanuvchi modeli
 from datetime import date, timedelta
 
 class Counter(models.Model):
@@ -6,16 +7,20 @@ class Counter(models.Model):
     current_streak = models.IntegerField(default=0)
     best_streak = models.IntegerField(default=0)
     last_date = models.DateField(null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.title
+
     def mark_done(self):
-        today = date.today()       
-        yesterday = today - timedelta(days=1)      
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+
         if self.last_date == today:
             return
+
         if self.last_date == yesterday:
-            self.current_streak = self.current_streak + 1   # yoki: += 1
-       
+            self.current_streak = self.current_streak + 1
         else:
             self.current_streak = 1
 
@@ -23,7 +28,7 @@ class Counter(models.Model):
             self.best_streak = self.current_streak
 
         self.last_date = today
-        self.save()            
+        self.save()
 
 
 class Quote(models.Model):
