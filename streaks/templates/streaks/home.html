@@ -1,7 +1,9 @@
 <h1>Current Streaks</h1>
 <ul>
   {% for c in counters %}  
-    <li>{{ c.title }}: {{ c.current_streak }}</li>
+    <li>{{ c.title }}: {{ c.current_streak }}
+      <a href="{%url 'done' c.id %}">Compleated</a>
+    </li>
   {% endfor %}
 </ul>
 
