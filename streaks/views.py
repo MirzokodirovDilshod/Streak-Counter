@@ -10,7 +10,7 @@ def home(request):
 
 @login_required
 def done(request, counter_id):
-    counter = get_object_or_404(Counter, id=counter_id)
+    counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
     counter.mark_done()
     return redirect('home')
 
