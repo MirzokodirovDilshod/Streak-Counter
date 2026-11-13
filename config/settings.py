@@ -80,6 +80,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = 'home'
-
 STATIC_URL = 'static/'
+
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'home'
