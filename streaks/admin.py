@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Counter,Quote
+from .models import Counter,Quote,Profile
 # Register your models here.
 admin.site.register(Counter)
 admin.site.register(Quote)
+admin.site.register(Profile)

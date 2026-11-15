@@ -37,3 +37,10 @@ class Quote(models.Model):
 
     def __str__(self):
         return self.author
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    friend_code = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.user.username
