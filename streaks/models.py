@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User   # Django'ning tayyor foydalanuvchi modeli
 from datetime import date, timedelta
+import random 
+import string
+
+def generate_friend_code():
+    digits = string.digits
+    return ''.join(random.choice(digits) for _ in range(10))
 
 class Counter(models.Model):
     title = models.CharField(max_length=300)

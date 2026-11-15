@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm 
-from .models import Counter, Quote
+from .models import Counter, Quote, Profile, generate_friend_code
 
 @login_required
 def home(request):
@@ -26,7 +26,8 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)  
         if form.is_valid():  
-            form.save()                         
+            user = form.save()
+            Profile.objects.create(user=user, friend_code=generate_friend_code())                
             return redirect('login')    
     else:
         form = UserCreationForm()  
