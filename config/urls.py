@@ -9,4 +9,5 @@ urlpatterns = [
     path('done/<int:counter_id>/', views.done, name='done'),
     path('add/', views.add_counter, name='add_counter'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
-]
+    path('signup/', views.signup, name='signup'),
+]   
