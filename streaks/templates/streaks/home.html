@@ -1,15 +1,20 @@
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Log out</button>
+</form>
+
 <h1>Current Streaks</h1>
 <ul>
-  {% for c in counters %}  
+  {% for c in counters %}
     <li>{{ c.title }}: {{ c.current_streak }}
-      <a href="{%url 'done' c.id %}">Compleated</a>
+      <a href="{% url 'done' c.id %}">Completed</a>
     </li>
   {% endfor %}
 </ul>
 
-<form action="{% url 'add_counter' %}" method="post">  
+<form action="{% url 'add_counter' %}" method="post">
   {% csrf_token %}
-  <input type="text" name='title'>    
+  <input type="text" name="title">
   <button type="submit">Qo'shish</button>
 </form>
 
