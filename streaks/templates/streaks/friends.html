@@ -1,4 +1,10 @@
 <h1>Friends</h1>
 
 <p>Your friend code:</p>
-<p>{{ profile.friend_code }}</p> 
+<p>{{ profile.friend_code }}</p>
+
+<form action="{% url 'friends' %}" method="post"></form>
+  {% csrf_token %}
+  <input type="text" name="friend_code">               
+  <button type="submit">Add friend</button>
+</form>
