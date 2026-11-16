@@ -36,16 +36,17 @@ def signup(request):
 @login_required
 def friends(request):
     profile, created = Profile.objects.get_or_create(
-        user=request.user,                                      
-        defaults={'friend_code': generate_friend_code()},  
+        user=request.user,
+        defaults={'friend_code': generate_friend_code()},
     )
-    return render(request, 'streaks/friends.html', {'profile': profile}) 
-
+    incoming = FriendRequest.objects.filter(receiver=request.user, accepted=False)
+    return render(request, 'streaks/friends.html', {'profile': profile, 'incoming': incoming})
+    
 @login_required
 def send_request(request):
     if request.method == 'POST':
         code = request.POST['friend_code']
-        profile = Profile.objects.filter(friend_code=code).first()   # topilmasa None
+        profile = Profile.objects.filter(friend_code=code).first() 
         if profile:
             FriendRequest.objects.create(sender=request.user, receiver=profile.user)
     return redirect('home')
