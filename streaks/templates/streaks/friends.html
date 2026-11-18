@@ -2,17 +2,20 @@
 
 <p>Your friend code:</p>
 <p>{{ profile.friend_code }}</p>
-
+<form action="{% url 'send_request' %}" method="post">   
+  {% csrf_token %}
+  <input type="text" name="friend_code">                
+  <button type="submit">Add friend</button>
+</form>
 <h2>Requests</h2>
 <ul>
-  {% for r in incoming %}                                  
+  {% for r in incoming %}
     <li>
       {{ r.sender.username }}
-      <!-- forma <li> ichida, for ning ICHIDA; r.id: ayni shu taklifning raqami -->
       <form action="{% url 'accept_request' r.id %}" method="post">
         {% csrf_token %}
         <button type="submit">Accept</button>
       </form>
     </li>
-  {% endfor %}                                            
+  {% endfor %}
 </ul>

@@ -45,10 +45,10 @@ def friends(request):
 def send_request(request):
     if request.method == 'POST':
         code = request.POST['friend_code']
-        profile = Profile.objects.filter(friend_code=code).first() 
-        if profile:
+        profile = Profile.objects.filter(friend_code=code).first()
+        if profile and profile.user != request.user:
             FriendRequest.objects.create(sender=request.user, receiver=profile.user)
-    return redirect('home')
+    return redirect('friends')
 
 @login_required
 def accept_request(request, request_id):
