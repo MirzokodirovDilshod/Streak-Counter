@@ -13,4 +13,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('friends/add/', views.send_request, name='send_request'),
     path('friends/', views.friends, name='friends'),
-]   
+    path('friends/accept/<int:request_id>/', views.accept_request,name='accept_request'),
+] 

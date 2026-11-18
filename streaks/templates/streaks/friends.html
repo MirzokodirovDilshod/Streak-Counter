@@ -5,7 +5,14 @@
 
 <h2>Requests</h2>
 <ul>
-  {% for r in incoming %}
-    <li>{{ r.sender.username }}</li>
-  {% endfor %}
+  {% for r in incoming %}                                  
+    <li>
+      {{ r.sender.username }}
+      <!-- forma <li> ichida, for ning ICHIDA; r.id: ayni shu taklifning raqami -->
+      <form action="{% url 'accept_request' r.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Accept</button>
+      </form>
+    </li>
+  {% endfor %}                                            
 </ul>

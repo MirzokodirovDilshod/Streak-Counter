@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm 
-from .models import Counter, Quote, Profile, generate_friend_code
-
+from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code   
 @login_required
 def home(request):
     counters = Counter.objects.filter(owner=request.user)
@@ -50,3 +49,11 @@ def send_request(request):
         if profile:
             FriendRequest.objects.create(sender=request.user, receiver=profile.user)
     return redirect('home')
+
+@login_required
+def accept_request(request, request_id):
+    if request.method == 'POST':
+        friend_request = get_object_or_404(FriendRequest, id=request_id, receiver=request.user)
+        friend_request.accepted = True
+        friend_request.save()
+    return redirect('friends')
