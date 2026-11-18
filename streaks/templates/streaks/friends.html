@@ -2,11 +2,20 @@
 
 <p>Your friend code:</p>
 <p>{{ profile.friend_code }}</p>
-<form action="{% url 'send_request' %}" method="post">   
+
+<form action="{% url 'send_request' %}" method="post">
   {% csrf_token %}
-  <input type="text" name="friend_code">                
+  <input type="text" name="friend_code">
   <button type="submit">Add friend</button>
 </form>
+<h2>Friends list</h2>
+<ul>
+  {% for u in friend_users %}
+    <li>{{ u.username }}</li>  
+  {% empty %}                 
+    <li>Hali do'stlar yo'q</li>
+  {% endfor %}
+</ul>
 <h2>Requests</h2>
 <ul>
   {% for r in incoming %}
