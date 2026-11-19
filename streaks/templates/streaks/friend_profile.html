@@ -2,7 +2,7 @@
 
 <ul>
   {% for c in counters %}
-    <li>{{ c.title }}: {{ c.current_streak }}</li>
+    <li>{{ c.title }}: {{ c.display_streak }}</li>
   {% empty %}
     <li>There are no counters yet</li>
   {% endfor %}

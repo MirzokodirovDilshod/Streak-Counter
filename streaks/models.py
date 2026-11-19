@@ -14,25 +14,28 @@ class Counter(models.Model):
     best_streak = models.IntegerField(default=0)
     last_date = models.DateField(null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    @property
+    def display_streak(self):     
+        if self.last_date is None:
+            return 0              
+        yesterday = date.today() - timedelta(days=1)
+        if self.last_date >= yesterday:     
+            return self.current_streak
+        return 0                    
 
     def __str__(self):
         return self.title
-
     def mark_done(self):
         today = date.today()
         yesterday = today - timedelta(days=1)
-
         if self.last_date == today:
             return
-
         if self.last_date == yesterday:
             self.current_streak = self.current_streak + 1
         else:
             self.current_streak = 1
-
         if self.current_streak > self.best_streak:
             self.best_streak = self.current_streak
-
         self.last_date = today
         self.save()
 
