@@ -1,0 +1,11 @@
+<h1>{{ friend.username }}</h1>
+
+<ul>
+  {% for c in counters %}
+    <li>{{ c.title }}: {{ c.current_streak }}</li>
+  {% empty %}
+    <li>There are no counters yet</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'friends' %}">Back to friends</a>

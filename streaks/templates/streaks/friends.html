@@ -8,14 +8,16 @@
   <input type="text" name="friend_code">
   <button type="submit">Add friend</button>
 </form>
+
 <h2>Friends list</h2>
 <ul>
   {% for u in friend_users %}
-    <li>{{ u.username }}</li>  
-  {% empty %}                 
-    <li>Hali do'stlar yo'q</li>
+    <li><a href="{% url 'friends_profile' u.id %}">{{ u.username }}</a></li>
+  {% empty %}
+    <li>No friends yet</li>
   {% endfor %}
 </ul>
+
 <h2>Requests</h2>
 <ul>
   {% for r in incoming %}
@@ -27,4 +29,4 @@
       </form>
     </li>
   {% endfor %}
-</ul>
+</ul> 

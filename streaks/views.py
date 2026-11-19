@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm 
 from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code   
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 @login_required
 def home(request):
@@ -74,3 +75,15 @@ def accept_request(request, request_id):
         friend_request.accepted = True
         friend_request.save()
     return redirect('friends')
+
+@login_required
+def friends_profile(request, user_id):
+    friend = get_object_or_404(User, id=user_id)
+    is_friend = FriendRequest.objects.filter(
+        Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user),
+        accepted=True,
+    ).exists() 
+    if not is_friend:
+        return redirect('friends')   
+    counters = Counter.objects.filter(owner=friend)
+    return render(request, 'streaks/friend_profile.html', {'friend': friend, 'counters': counters})
