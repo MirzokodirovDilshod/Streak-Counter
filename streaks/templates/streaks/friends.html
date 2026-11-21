@@ -1,32 +1,36 @@
-<h1>Friends</h1>
+{% extends 'streaks/base.html' %}
 
-<p>Your friend code:</p>
-<p>{{ profile.friend_code }}</p>
+{% block content %}
+  <h1>Friends</h1>
 
-<form action="{% url 'send_request' %}" method="post">
-  {% csrf_token %}
-  <input type="text" name="friend_code">
-  <button type="submit">Add friend</button>
-</form>
+  <p>Your friend code:</p>
+  <p>{{ profile.friend_code }}</p>
 
-<h2>Friends list</h2>
-<ul>
-  {% for u in friend_users %}
-    <li><a href="{% url 'friends_profile' u.id %}">{{ u.username }}</a></li>
-  {% empty %}
-    <li>No friends yet</li>
-  {% endfor %}
-</ul>
+  <form action="{% url 'send_request' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="friend_code">
+    <button type="submit">Add friend</button>
+  </form>
 
-<h2>Requests</h2>
-<ul>
-  {% for r in incoming %}
-    <li>
-      {{ r.sender.username }}
-      <form action="{% url 'accept_request' r.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Accept</button>
-      </form>
-    </li>
-  {% endfor %}
-</ul> 
+  <h2>Friends list</h2>
+  <ul>
+    {% for u in friend_users %}
+      <li><a href="{% url 'friends_profile' u.id %}">{{ u.username }}</a></li>
+    {% empty %}
+      <li>No friends yet</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Requests</h2>
+  <ul>
+    {% for r in incoming %}
+      <li>
+        {{ r.sender.username }}
+        <form action="{% url 'accept_request' r.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Accept</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

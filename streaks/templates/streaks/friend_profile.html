@@ -1,11 +1,15 @@
-<h1>{{ friend.username }}</h1>
+{% extends 'streaks/base.html' %}
 
-<ul>
-  {% for c in counters %}
-    <li>{{ c.title }}: {{ c.display_streak }}</li>
-  {% empty %}
-    <li>There are no counters yet</li>
-  {% endfor %}
-</ul>
+{% block content %}
+  <h1>{{ friend.username }}</h1>
 
-<a href="{% url 'friends' %}">Back to friends</a>
+  <ul>
+    {% for c in counters %}
+      <li>{{ c.title }}: {{ c.display_streak }}</li>
+    {% empty %}
+      <li>There are no counters yet</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'friends' %}">Back to friends</a>
+{% endblock %}

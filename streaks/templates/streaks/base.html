@@ -1,0 +1,15 @@
+<nav>
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'friends' %}">Friends</a>
+
+  <!-- Log out: POST forma (chiqish akkaunt holatini o'zgartiradi) -->
+  <form action="{% url 'logout' %}" method="post" style="display:inline">
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+  </form>
+</nav>
+
+<hr>
+
+<!-- Har bir sahifa o'z mazmunini shu bo'sh joyga qo'yadi -->
+{% block content %}{% endblock %}
