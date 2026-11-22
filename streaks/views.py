@@ -87,3 +87,7 @@ def friends_profile(request, user_id):
         return redirect('friends')   
     counters = Counter.objects.filter(owner=friend)
     return render(request, 'streaks/friend_profile.html', {'friend': friend, 'counters': counters})
+
+@login_required
+def my_profile(request):
+    return render(request, 'streaks/my_profile.html')

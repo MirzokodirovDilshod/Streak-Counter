@@ -1,15 +1,24 @@
-<nav>
-  <a href="{% url 'home' %}">Home</a>
-  <a href="{% url 'friends' %}">Friends</a>
+<!DOCTYPE html>                      
+<html lang="en">                    
+<head>
+  <meta charset="UTF-8">              
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>{% block title %}Streak Counter{% endblock %}</title>  
+</head>
+<body>
+  <nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'friends' %}">Friends</a>
+    <a href="{%url 'my_profile'%}">Profile</a>
 
-  <!-- Log out: POST forma (chiqish akkaunt holatini o'zgartiradi) -->
-  <form action="{% url 'logout' %}" method="post" style="display:inline">
-    {% csrf_token %}
-    <button type="submit">Log out</button>
-  </form>
-</nav>
+    <form action="{% url 'logout' %}" method="post" style="display:inline">
+      {% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
+  </nav>
 
-<hr>
+  <hr>
 
-<!-- Har bir sahifa o'z mazmunini shu bo'sh joyga qo'yadi -->
-{% block content %}{% endblock %}
+  {% block content %}{% endblock %}
+</body>
+</html>
