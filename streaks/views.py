@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code   
 from django.db.models import Q
 from django.contrib.auth.models import User
+from .forms import ProfileForm
 
 @login_required
 def home(request):
@@ -82,7 +83,7 @@ def friends_profile(request, user_id):
     is_friend = FriendRequest.objects.filter(
         Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user),
         accepted=True,
-    ).exists() 
+    ).exists()
     if not is_friend:
         return redirect('friends')   
     counters = Counter.objects.filter(owner=friend)
@@ -90,4 +91,11 @@ def friends_profile(request, user_id):
 
 @login_required
 def my_profile(request):
-    return render(request, 'streaks/my_profile.html')
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('my_profile')            
+    else:
+        form = ProfileForm(instance=request.user)
+    return render(request, 'streaks/my_profile.html', {'form': form})
