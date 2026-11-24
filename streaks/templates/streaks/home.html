@@ -1,10 +1,18 @@
-{% extends 'streaks/base.html' %}  
+{% extends 'streaks/base.html' %}
+
 {% block content %}
   <h1>Current Streaks</h1>
   <ul>
     {% for c in counters %}
-      <li>{{ c.title }}: {{ c.display_streak }}
+      <li>
+        {{ c.title }}: {{ c.display_streak }}
         <a href="{% url 'done' c.id %}">Completed</a>
+
+        <form action="{% url 'remove_counter' c.id %}" method="post" style="display:inline"
+              onsubmit="return confirm('Do you really want to delete this counter?')">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
       </li>
     {% endfor %}
   </ul>

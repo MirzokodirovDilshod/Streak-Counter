@@ -15,5 +15,6 @@ urlpatterns = [
     path('friends/', views.friends, name='friends'),
     path('friends/accept/<int:request_id>/', views.accept_request,name='accept_request'),
     path('friends/<int:user_id>/', views.friends_profile, name='friends_profile'),
-    path('profile/',views.my_profile, name='my_profile')
+    path('profile/',views.my_profile, name='my_profile'),
+    path('delete/<int:counter_id>/', views.remove_counter,name= 'remove_counter') 
 ] 

@@ -113,3 +113,10 @@ def my_profile(request):
     else:
         form = ProfileForm(instance=request.user)
     return render(request, 'streaks/my_profile.html', {'form': form})
+
+@login_required
+def remove_counter(request, counter_id):
+    if request.method == 'POST':
+        counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
+        counter.delete()
+    return redirect('home')
