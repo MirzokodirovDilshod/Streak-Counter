@@ -73,7 +73,14 @@ def send_request(request):
         code = request.POST['friend_code']
         profile = Profile.objects.filter(friend_code=code).first()
         if profile and profile.user != request.user:
-            FriendRequest.objects.create(sender=request.user, receiver=profile.user)
+            already = FriendRequest.objects.filter(
+                Q(sender=request.user, receiver=profile.user) | Q(sender=profile.user, receiver=request.user)
+            ).exists()
+            if not already:
+                FriendRequest.objects.create(sender=request.user, receiver=profile.user)
+    return redirect('friends')
+    if not already:
+        FriendRequest.objects.create(sender=request.user, receiver=profile.user)
     return redirect('friends')
 
 @login_required
