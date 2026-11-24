@@ -1,8 +1,6 @@
 {% extends 'streaks/base.html' %}
-
 {% block content %}
   <h1>Friends</h1>
-
   <p>Your friend code:</p>
   <p>{{ profile.friend_code }}</p>
 
@@ -34,3 +32,16 @@
     {% endfor %}
   </ul>
 {% endblock %}
+{% for r in incoming %}
+  <li>
+    {{ r.sender.username }}
+    <form action="{% url 'accept_request' r.id %}" method="post" style="display:inline">
+      {% csrf_token %}
+      <button type="submit">Accept</button>
+    </form>
+    <form action="{% url 'reject_user' r.id %}" method="post" style="display:inline">
+      {% csrf_token %}
+      <button type="submit">Reject</button>
+    </form>
+  </li>
+{% endfor %}
