@@ -5,11 +5,18 @@ from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code
 from django.db.models import Q
 from django.contrib.auth.models import User
 from .forms import ProfileForm
+from datetime import date 
 
 @login_required
 def home(request):
     counters = Counter.objects.filter(owner=request.user)
     quote = Quote.objects.order_by('?').first()
+    quotes = Quote.objects.order_by('id')
+    total = quotes.count()
+    if total > 0:                     
+        quote = quotes[date.today().toordinal() % total]
+    else:
+        quote = None                      
     return render(request, 'streaks/home.html', {'counters': counters, 'quote': quote})
 
 @login_required
