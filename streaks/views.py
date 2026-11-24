@@ -120,3 +120,10 @@ def remove_counter(request, counter_id):
         counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
         counter.delete()
     return redirect('home')
+
+@login_required
+def decline_invite(request, request_id):
+    if request.method == 'POST':
+        invite = get_object_or_404(FriendRequest, id=request_id, receiver=request.user)
+        invite.delete()             
+    return redirect('friends')
