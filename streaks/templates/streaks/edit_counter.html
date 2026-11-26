@@ -1,13 +1,18 @@
 {% extends 'streaks/base.html' %}
 
+{% block title %}Edit counter · Streak Counter{% endblock %}
+
 {% block content %}
-  <h1>Edit counter</h1>
+  <h1 class="page-title">Edit counter</h1>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}    
-    <button type="submit">Save</button>
-  </form>
-
-  <a href="{% url 'home' %}">Cancel</a>
+  <section class="card form-card">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions-row">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-ghost" href="{% url 'home' %}">Cancel</a>
+      </div>
+    </form>
+  </section>
 {% endblock %}

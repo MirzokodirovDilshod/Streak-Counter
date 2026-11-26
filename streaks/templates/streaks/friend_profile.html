@@ -1,20 +1,28 @@
 {% extends 'streaks/base.html' %}
 
-{% block content %}
-  <h1>{{ friend.username }}</h1>
+{% block title %}{{ friend.username }} · Streak Counter{% endblock %}
 
-  <ul>
+{% block content %}
+  <h1 class="page-title">{{ friend.username }}</h1>
+
+  <ul class="streak-list narrow">
     {% for c in counters %}
-      <li>{{ c.title }}: {{ c.display_streak }}</li>
+      <li class="streak-card">
+        <div class="streak-badge">🔥<span>{{ c.display_streak }}</span></div>
+        <div class="streak-title">{{ c.title }}</div>
+      </li>
     {% empty %}
-      <li>There are no counters yet</li>
+      <li class="empty">There are no counters yet.</li>
     {% endfor %}
   </ul>
-  
-  <form action="{% url 'remove_friend' friend.id %}" method="post"
-        onsubmit="return confirm('Remove this friend?')">
-    {% csrf_token %}
-    <button type="submit">Remove friend</button>
-  </form>
-  <a href="{% url 'friends' %}">Back to friends</a>
+
+  <div class="actions-center">
+    <a class="btn btn-ghost" href="{% url 'friends' %}">Back to friends</a>
+
+    <form action="{% url 'remove_friend' friend.id %}" method="post"
+          onsubmit="return confirm('Remove this friend?')">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Remove friend</button>
+    </form>
+  </div>
 {% endblock %}

@@ -1,22 +1,24 @@
 {% extends 'streaks/base.html' %}
 
 {% block content %}
- <p class="greeting">Hello there, {{ user.username }}!</p>
+  <p class="greeting">Hello there, {{ user.username }}!</p>
   <h1 class="page-title">Current Streaks</h1>
-<div class="stats">
-  <div class="stat">
-    <span class="stat-value">{{ total }}</span>
-    <span class="stat-label">Counters</span>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value">{{ total }}</span>
+      <span class="stat-label">Counters</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ best }}</span>
+      <span class="stat-label">Best current streak</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ done_today }}/{{ total }}</span>
+      <span class="stat-label">Done today</span>
+    </div>
   </div>
-  <div class="stat">
-    <span class="stat-value">{{ best }}</span>
-    <span class="stat-label">Best current streak</span>
-  </div>
-  <div class="stat">
-    <span class="stat-value">{{ done_today }}/{{ total }}</span>
-    <span class="stat-label">Done today</span>
-  </div>
-</div>
+
   <div class="layout">
     <section>
       <ul class="streak-list">
@@ -26,10 +28,14 @@
             <div class="streak-title">{{ c.title }}</div>
 
             <div class="streak-actions">
-              <form action="{% url 'done' c.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Completed</button>
-              </form>
+              {% if c.is_done_today %}
+                <span class="done-badge">✓ Done today</span>
+              {% else %}
+                <form action="{% url 'done' c.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary">Completed</button>
+                </form>
+              {% endif %}
 
               <a class="btn btn-ghost" href="{% url 'edit_counter' c.id %}">Edit</a>
 
@@ -48,7 +54,7 @@
       <form action="{% url 'add_counter' %}" method="post" class="add-form">
         {% csrf_token %}
         <input type="text" name="title" placeholder="New counter name" required>
-        <button type="submit" class="btn btn-primary">Qo'shish</button>
+        <button type="submit" class="btn btn-primary">Add counter</button>
       </form>
     </section>
 

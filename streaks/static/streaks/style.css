@@ -1,4 +1,4 @@
-/* Ranglar bir joyda: keyin o'zgartirish oson */
+/* ---------- Ranglar bir joyda ---------- */
 :root {
   --bg: #f4f5f9;
   --card: #ffffff;
@@ -8,6 +8,7 @@
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --danger: #dc2626;
+  --ok: #16a34a;
   --radius: 14px;
 }
 
@@ -33,6 +34,7 @@ body {
 
 a { color: var(--primary); }
 button { font: inherit; cursor: pointer; }
+h1, h2 { margin: 0; }
 
 /* ---------- Tepa menyu ---------- */
 .topbar { background: var(--card); border-bottom: 1px solid var(--border); }
@@ -43,15 +45,15 @@ button { font: inherit; cursor: pointer; }
 }
 .brand { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
 .nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.nav > a {
-  padding: 8px 14px; border-radius: 999px;
-  color: var(--text); text-decoration: none;
-}
+.nav > a { padding: 8px 14px; border-radius: 999px; color: var(--text); text-decoration: none; }
 .nav > a:hover { background: var(--bg); }
 .logout-form { margin: 0; }
 
 .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
 .page-title { text-align: center; margin: 10px 0 28px; }
+.greeting { margin: 0 0 4px; color: var(--muted); font-size: 1.05rem; }
+.muted { color: var(--muted); margin: 8px 0 0; font-size: 0.9rem; }
+.empty { color: var(--muted); padding: 10px 2px; list-style: none; }
 
 /* ---------- Tugmalar ---------- */
 .btn {
@@ -65,58 +67,7 @@ button { font: inherit; cursor: pointer; }
 .btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
 .btn-danger:hover { background: var(--danger); color: #fff; }
 
-/* ---------- Home: ikki ustun ---------- */
-.layout {
-  display: grid; grid-template-columns: 1.3fr 1fr;
-  gap: 24px; align-items: start;
-}
-
-.streak-list { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 14px; }
-.streak-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px 18px;
-  display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; align-items: center;
-}
-.streak-badge {
-  grid-row: span 2; display: flex; flex-direction: column;
-  align-items: center; min-width: 56px; font-size: 1.4rem;
-}
-.streak-badge span { font-weight: 700; font-size: 1.3rem; }
-.streak-title { font-weight: 600; font-size: 1.05rem; }
-.streak-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.streak-actions form { margin: 0; }
-.empty { color: var(--muted); padding: 10px 2px; }
-
-.add-form { display: flex; gap: 10px; }
-.add-form input { flex: 1; }
-
-/* ---------- Formalar ---------- */
-input[type="text"], input[type="email"], input[type="password"] {
-  padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
-  background: var(--card); color: var(--text); font: inherit;
-}
-input:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
-
-/* ---------- Daily Quote kartasi ---------- */
-.quote-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-left: 5px solid var(--primary); border-radius: var(--radius); padding: 22px;
-}
-.quote-label {
-  margin: 0 0 12px; font-size: 0.8rem; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--muted);
-}
-.quote-text { font-size: 1.05rem; font-style: italic; margin: 0 0 14px; }
-.quote-author { margin: 0; font-weight: 600; text-align: right; }
-
-/* ---------- Telefon: bitta ustun ---------- */
-@media (max-width: 760px) {
-  .layout { grid-template-columns: 1fr; }
-}
-
-/* ---------- 1) Klassi yo'q tugmalar ham chiroyli bo'lsin ---------- */
-/* button:not(.btn): "btn" klassi yo'q tugmalarni tanlaydi (Accept, Save, Add friend va h.k.).
-   Klassi bor tugmalar (btn-danger va boshqalar) o'z ko'rinishini saqlaydi. */
+/* Klassi yo'q tugmalar (login/signup sahifalari) ham chiroyli bo'lsin */
 button:not(.btn) {
   background: var(--primary); color: #fff;
   border: 1px solid transparent; border-radius: 999px;
@@ -124,68 +75,105 @@ button:not(.btn) {
 }
 button:not(.btn):hover { background: var(--primary-hover); }
 
-/* ---------- 2) Hamma tugma va havola-tugmalar uchun animatsiya ---------- */
-button, .btn {
-  transition: transform 0.15s ease, box-shadow 0.15s ease,
-              background-color 0.15s ease, color 0.15s ease;
-}
-button:hover, .btn:hover {
-  transform: translateY(-2px);                  /* tugma biroz ko'tariladi */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);   /* tagida soya paydo bo'ladi */
-}
-button:active, .btn:active {
-  transform: translateY(0) scale(0.96);         
-  box-shadow: none;
-}
-/* Klaviatura bilan (Tab) tanlanganda ko'rinadigan ramka */
-button:focus-visible, .btn:focus-visible {
-  outline: 3px solid var(--primary); outline-offset: 2px;
-}
+button:focus-visible, .btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 
-/* ---------- 3) Kartalar va olov belgisi ---------- */
-.streak-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.streak-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+/* ---------- Formalar ---------- */
+input[type="text"], input[type="email"], input[type="password"] {
+  padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--card); color: var(--text); font: inherit; width: 100%;
 }
-/*Streak kartasia bosganda olov o'ynab chiqadi*/
-.streak-card:hover .streak-badge { animation: flame 0.6s ease; }
-@keyframes flame {
-  0%   { transform: scale(1) rotate(0); }
-  30%  { transform: scale(1.25) rotate(-8deg); }
-  60%  { transform: scale(1.15) rotate(6deg); }
-  100% { transform: scale(1) rotate(0); }
-}
-/* Kompyuterida "harakatni kamaytirish" yoqilgan bo'lsa, hammasi o'chadi */
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
-}
+input:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
 
-.greeting {
-  margin: 0 0 4px;
-  color: var(--muted);
-  font-size: 1.05rem;
-}
+.add-form { display: flex; gap: 10px; }
+.add-form input { flex: 1; width: auto; }
 
-/* ---------- Statistika qatori ---------- */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 14px;
-  margin-bottom: 24px;
-}
+/* form.as_p chiqargan abzaslar */
+.form-card form p { display: flex; flex-direction: column; gap: 6px; margin: 0 0 16px; }
+.form-card label { font-weight: 600; }
+.helptext { color: var(--muted); font-size: 0.85rem; }
+.errorlist { list-style: none; margin: 0 0 12px; padding: 10px 14px;
+  border: 1px solid var(--danger); border-radius: 10px; color: var(--danger); }
+.form-card { max-width: 520px; margin: 0 auto; }
+.actions-row { display: flex; gap: 10px; align-items: center; }
+
+/* ---------- Home: statistika ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
 .stat {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 16px; text-align: center; display: flex; flex-direction: column;
 }
 .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
 .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- Home: ikki ustun ---------- */
+.layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
+
+.streak-list { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 14px; }
+.streak-list.narrow { max-width: 520px; margin: 0 auto 24px; }
+.streak-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; align-items: center;
+}
+.streak-badge {
+  grid-row: span 2; display: flex; flex-direction: column; align-items: center;
+  min-width: 56px; font-size: 1.4rem;
+}
+.streak-badge span { font-weight: 700; font-size: 1.3rem; }
+.streak-title { font-weight: 600; font-size: 1.05rem; }
+.streak-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.streak-actions form { margin: 0; }
+
+.done-badge {
+  display: inline-block; padding: 8px 16px; border-radius: 999px;
+  font-size: 0.9rem; font-weight: 600; color: var(--ok);
+  background: rgba(22, 163, 74, 0.12); border: 1px solid rgba(22, 163, 74, 0.35);
+}
+
+/* ---------- Daily Quote ---------- */
+.quote-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 5px solid var(--primary); border-radius: var(--radius); padding: 22px;
+}
+.quote-label { margin: 0 0 12px; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.quote-text { font-size: 1.05rem; font-style: italic; margin: 0 0 14px; }
+.quote-author { margin: 0; font-weight: 600; text-align: right; }
+
+/* ---------- Friends / Profile kartalari ---------- */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+}
+.card-title { font-size: 1rem; margin-bottom: 12px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-2 .card { margin-bottom: 20px; }
+.code-box {
+  margin: 0; padding: 12px 16px; text-align: center; font-size: 1.4rem;
+  font-weight: 700; letter-spacing: 0.08em; color: var(--primary);
+  background: var(--bg); border: 1px dashed var(--border); border-radius: 10px;
+  word-break: break-all;
+}
+
+.row-list { list-style: none; margin: 0; padding: 0; }
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.row:last-child { border-bottom: none; }
+.row-name { font-weight: 600; }
+.row a.row-name { text-decoration: none; color: var(--text); }
+.row a.row-name:hover { color: var(--primary); }
+.row-actions { display: flex; gap: 8px; }
+.row-actions form { margin: 0; }
+
+.actions-center { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.actions-center form { margin: 0; }
+
+/* ---------- Telefon ---------- */
+@media (max-width: 760px) {
+  .layout, .grid-2 { grid-template-columns: 1fr; }
+}
 @media (max-width: 480px) {
   .stat-value { font-size: 1.3rem; }
   .stat-label { font-size: 0.7rem; }
+  .add-form { flex-direction: column; }
 }

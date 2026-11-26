@@ -22,7 +22,9 @@ class Counter(models.Model):
         if self.last_date >= yesterday:     
             return self.current_streak
         return 0                    
-
+    @property
+    def is_done_today(self):
+        return self.last_date == date.today()
     def __str__(self):
         return self.title
     def mark_done(self):

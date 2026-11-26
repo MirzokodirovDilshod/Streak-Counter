@@ -1,47 +1,60 @@
 {% extends 'streaks/base.html' %}
+
+{% block title %}Friends · Streak Counter{% endblock %}
+
 {% block content %}
-  <h1>Friends</h1>
-  <p>Your friend code:</p>
-  <p>{{ profile.friend_code }}</p>
+  <h1 class="page-title">Friends</h1>
 
-  <form action="{% url 'send_request' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="friend_code">
-    <button type="submit">Add friend</button>
-  </form>
+  <div class="grid-2">
+    <section class="card">
+      <h2 class="card-title">Your friend code</h2>
+      <p class="code-box">{{ profile.friend_code }}</p>
+      <p class="muted">Share this code so friends can send you a request.</p>
+    </section>
 
-  <h2>Friends list</h2>
-  <ul>
-    {% for u in friend_users %}
-      <li><a href="{% url 'friends_profile' u.id %}">{{ u.username }}</a></li>
-    {% empty %}
-      <li>No friends yet</li>
-    {% endfor %}
-  </ul>
+    <section class="card">
+      <h2 class="card-title">Add a friend</h2>
+      <form action="{% url 'send_request' %}" method="post" class="add-form">
+        {% csrf_token %}
+        <input type="text" name="friend_code" placeholder="Friend code" required>
+        <button type="submit" class="btn btn-primary">Add friend</button>
+      </form>
+    </section>
+  </div>
 
-  <h2>Requests</h2>
-  <ul>
-    {% for r in incoming %}
-      <li>
-        {{ r.sender.username }}
-        <form action="{% url 'accept_request' r.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit">Accept</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
+  <section class="card">
+    <h2 class="card-title">Friends list</h2>
+    <ul class="row-list">
+      {% for u in friend_users %}
+        <li class="row">
+          <a class="row-name" href="{% url 'friends_profile' u.id %}">{{ u.username }}</a>
+        </li>
+      {% empty %}
+        <li class="empty">No friends yet. Share your code to get started.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title">Requests</h2>
+    <ul class="row-list">
+      {% for r in incoming %}
+        <li class="row">
+          <span class="row-name">{{ r.sender.username }}</span>
+          <div class="row-actions">
+            <form action="{% url 'accept_request' r.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Accept</button>
+            </form>
+            <form action="{% url 'reject_request' r.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Reject</button>
+            </form>
+          </div>
+        </li>
+      {% empty %}
+        <li class="empty">No new requests.</li>
+      {% endfor %}
+    </ul>
+  </section>
 {% endblock %}
-{% for r in incoming %}
-  <li>
-    {{ r.sender.username }}
-    <form action="{% url 'accept_request' r.id %}" method="post" style="display:inline">
-      {% csrf_token %}
-      <button type="submit">Accept</button>
-    </form>
-    <form action="{% url 'reject_request' r.id %}" method="post" style="display:inline">
-      {% csrf_token %}
-      <button type="submit">Reject</button>
-    </form>
-  </li>
-{% endfor %}
