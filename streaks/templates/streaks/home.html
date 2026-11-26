@@ -3,7 +3,20 @@
 {% block content %}
  <p class="greeting">Hello there, {{ user.username }}!</p>
   <h1 class="page-title">Current Streaks</h1>
-
+<div class="stats">
+  <div class="stat">
+    <span class="stat-value">{{ total }}</span>
+    <span class="stat-label">Counters</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ best }}</span>
+    <span class="stat-label">Best current streak</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ done_today }}/{{ total }}</span>
+    <span class="stat-label">Done today</span>
+  </div>
+</div>
   <div class="layout">
     <section>
       <ul class="streak-list">

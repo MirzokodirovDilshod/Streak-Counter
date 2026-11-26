@@ -150,3 +150,23 @@ def remove_friend(request, user_id):
             accepted=True,
         ).delete()
     return redirect('friends')
+
+@login_required
+def home(request):
+    counters = Counter.objects.filter(owner=request.user)
+    total = counters.count()    # jami nechta counter
+    best = max([c.display_streak for c in counters], default=0)
+    done_today = counters.filter(last_date=date.today()).count()
+    quotes = Quote.objects.order_by('id')
+    quote_total = quotes.count()
+    if quote_total > 0:
+        quote = quotes[date.today().toordinal() % quote_total]
+    else:
+        quote = None
+    return render(request, 'streaks/home.html', {
+        'counters': counters,
+        'quote': quote,
+        'total': total,
+        'best': best,
+        'done_today': done_today,
+    })
