@@ -6,7 +6,12 @@
     {% for c in counters %}
       <li>
         {{ c.title }}: {{ c.display_streak }}
-        <a href="{% url 'done' c.id %}">Completed</a>
+        <form action="{% url 'done' c.id %}" method="post" style="display:inline">
+          {% csrf_token %}
+          <button type="submit">Completed</button>
+        </form>
+
+        <a href="{% url 'edit_counter' c.id %}">Edit</a>
 
         <form action="{% url 'remove_counter' c.id %}" method="post" style="display:inline"
               onsubmit="return confirm('Do you really want to delete this counter?')">

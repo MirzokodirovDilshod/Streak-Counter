@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code   
 from django.db.models import Q
 from django.contrib.auth.models import User
-from .forms import ProfileForm
+from .forms import ProfileForm, CounterForm
 from datetime import date 
 
 @login_required
@@ -21,8 +21,9 @@ def home(request):
 
 @login_required
 def done(request, counter_id):
-    counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
-    counter.mark_done()
+    if request.method == 'POST':
+        counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
+        counter.mark_done()
     return redirect('home')
 
 @login_required
@@ -127,3 +128,16 @@ def decline_invite(request, request_id):
         invite = get_object_or_404(FriendRequest, id=request_id, receiver=request.user)
         invite.delete()             
     return redirect('friends')
+
+@login_required
+def edit_counter(request, counter_id):
+    counter = get_object_or_404(Counter, id=counter_id, owner=request.user)
+    if request.method == 'POST':
+        form = CounterForm(request.POST, instance=counter)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = CounterForm(instance=counter)
+    return render(request, 'streaks/edit_counter.html', {'form': form})
+

@@ -18,4 +18,5 @@ urlpatterns = [
     path('profile/',views.my_profile, name='my_profile'),
     path('delete/<int:counter_id>/', views.remove_counter,name= 'remove_counter'),
     path('friends/reject/<int:request_id>/',views.decline_invite,name = 'reject_request'),
+    path('edit/<int:counter_id>/',views.edit_counter, name='edit_counter')
 ] 
