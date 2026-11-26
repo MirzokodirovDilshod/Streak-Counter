@@ -141,3 +141,12 @@ def edit_counter(request, counter_id):
         form = CounterForm(instance=counter)
     return render(request, 'streaks/edit_counter.html', {'form': form})
 
+@login_required
+def remove_friend(request, user_id):
+    if request.method == 'POST':
+        friend = get_object_or_404(User, id=user_id)
+        FriendRequest.objects.filter(
+            Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user),
+            accepted=True,
+        ).delete()
+    return redirect('friends')

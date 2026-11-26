@@ -10,6 +10,11 @@
       <li>There are no counters yet</li>
     {% endfor %}
   </ul>
-
+  
+  <form action="{% url 'remove_friend' friend.id %}" method="post"
+        onsubmit="return confirm('Remove this friend?')">
+    {% csrf_token %}
+    <button type="submit">Remove friend</button>
+  </form>
   <a href="{% url 'friends' %}">Back to friends</a>
 {% endblock %}
