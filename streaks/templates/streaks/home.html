@@ -1,35 +1,52 @@
 {% extends 'streaks/base.html' %}
 
 {% block content %}
-  <h1>Current Streaks</h1>
-  <ul>
-    {% for c in counters %}
-      <li>
-        {{ c.title }}: {{ c.display_streak }}
-        <form action="{% url 'done' c.id %}" method="post" style="display:inline">
-          {% csrf_token %}
-          <button type="submit">Completed</button>
-        </form>
+ <p class="greeting">Hello there, {{ user.username }}!</p>
+  <h1 class="page-title">Current Streaks</h1>
 
-        <a href="{% url 'edit_counter' c.id %}">Edit</a>
+  <div class="layout">
+    <section>
+      <ul class="streak-list">
+        {% for c in counters %}
+          <li class="streak-card">
+            <div class="streak-badge">🔥<span>{{ c.display_streak }}</span></div>
+            <div class="streak-title">{{ c.title }}</div>
 
-        <form action="{% url 'remove_counter' c.id %}" method="post" style="display:inline"
-              onsubmit="return confirm('Do you really want to delete this counter?')">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
+            <div class="streak-actions">
+              <form action="{% url 'done' c.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Completed</button>
+              </form>
 
-  <form action="{% url 'add_counter' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="title">
-    <button type="submit">Qo'shish</button>
-  </form>
+              <a class="btn btn-ghost" href="{% url 'edit_counter' c.id %}">Edit</a>
 
-  {% if quote %}
-    <p>{{ quote.text }}</p>
-    <p>{{ quote.author }}</p>
-  {% endif %}
+              <form action="{% url 'remove_counter' c.id %}" method="post"
+                    onsubmit="return confirm('Do you really want to delete this counter?')">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </li>
+        {% empty %}
+          <li class="empty">No counters yet. Add your first one below.</li>
+        {% endfor %}
+      </ul>
+
+      <form action="{% url 'add_counter' %}" method="post" class="add-form">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="New counter name" required>
+        <button type="submit" class="btn btn-primary">Qo'shish</button>
+      </form>
+    </section>
+
+    <aside class="quote-card">
+      <h2 class="quote-label">Daily Quote</h2>
+      {% if quote %}
+        <p class="quote-text">{{ quote.text }}</p>
+        <p class="quote-author">— {{ quote.author }}</p>
+      {% else %}
+        <p class="quote-text">No quote yet.</p>
+      {% endif %}
+    </aside>
+  </div>
 {% endblock %}

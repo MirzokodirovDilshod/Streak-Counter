@@ -1,26 +1,31 @@
 {% load static %}
-<!DOCTYPE html>                      
-<html lang="en">                    
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">              
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Streak Counter{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'streaks/style.css' %}">
 </head>
 <body>
-  <nav>
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'friends' %}">Friends</a>
-    <a href="{%url 'my_profile'%}">Profile</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="{% url 'home' %}">🔥 Streak Counter</a>
 
-    <form action="{% url 'logout' %}" method="post" style="display:inline">
-      {% csrf_token %}
-      <button type="submit">Log out</button>
-    </form>
-  </nav>
+      <nav class="nav">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'friends' %}">Friends</a>
+        <a href="{% url 'my_profile' %}">Profile</a>
 
-  <hr>
-
-  {% block content %}{% endblock %}
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-ghost">Log out</button>
+        </form>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
 </body>
 </html>
