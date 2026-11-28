@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Counter, Quote, Profile, FriendRequest, generate_friend_code   
 from django.db.models import Q
 from django.contrib.auth.models import User
-from .forms import ProfileForm, CounterForm
+from .forms import ProfileForm, CounterForm, AvatarForm
 from datetime import date 
 
 @login_required
@@ -169,4 +169,16 @@ def home(request):
         'total': total,
         'best': best,
         'done_today': done_today,
-    })
+    })   
+
+@login_required
+def upload_avatar(request):
+    if request.method == 'POST':
+        profile, created = Profile.objects.get_or_create(
+            user=request.user,
+            defaults={'friend_code': generate_friend_code()},
+        )
+        form = AvatarForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+    return redirect('my_profile')

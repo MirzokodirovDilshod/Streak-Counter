@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Counter
+from .models import Counter , Profile
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -11,3 +11,9 @@ class CounterForm(forms.ModelForm):
     class Meta:
         model = Counter
         fields = ['title']
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']
+        

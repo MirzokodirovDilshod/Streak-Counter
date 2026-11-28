@@ -52,7 +52,7 @@ class Quote(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     friend_code = models.CharField(max_length=20, unique=True)
-
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)  
     def __str__(self):
         return self.user.username
 

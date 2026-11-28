@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.conf import settings                
+from django.conf.urls.static import static           
 from streaks import views
 
 urlpatterns = [
@@ -13,12 +15,13 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('friends/add/', views.send_request, name='send_request'),
     path('friends/', views.friends, name='friends'),
-    path('friends/accept/<int:request_id>/', views.accept_request,name='accept_request'),
+    path('friends/accept/<int:request_id>/', views.accept_request, name='accept_request'),
     path('friends/<int:user_id>/', views.friends_profile, name='friends_profile'),
-    path('profile/',views.my_profile, name='my_profile'),
-    path('delete/<int:counter_id>/', views.remove_counter,name= 'remove_counter'),
-    path('friends/reject/<int:request_id>/',views.decline_invite,name = 'reject_request'),
-    path('edit/<int:counter_id>/',views.edit_counter, name='edit_counter'),
-    path('friends/remove/<int:user_id>/',views.remove_friend, name='remove_friend'),
-    
-] 
+    path('profile/', views.my_profile, name='my_profile'),
+    path('delete/<int:counter_id>/', views.remove_counter, name='remove_counter'),
+    path('friends/reject/<int:request_id>/', views.decline_invite, name='reject_request'),
+    path('edit/<int:counter_id>/', views.edit_counter, name='edit_counter'),
+    path('friends/remove/<int:user_id>/', views.remove_friend, name='remove_friend'),
+    path('profile/avatar/', views.upload_avatar, name='upload_avatar'),
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,6 +5,19 @@
 {% block content %}
   <h1 class="page-title">Profile</h1>
 
+  <section class="card form-card avatar-card">
+    {% if user.profile.avatar %}
+      <img class="avatar" src="{{ user.profile.avatar.url }}" alt="Your avatar">
+    {% else %}
+      <div class="avatar avatar-empty">{{ user.username|first|upper }}</div>
+    {% endif %}
+    <form action="{% url 'upload_avatar' %}" method="post" enctype="multipart/form-data" class="avatar-form">
+      {% csrf_token %}
+      <input type="file" name="avatar" accept="image/*" required>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+  </section>
+
   <section class="card form-card">
     <form method="post">
       {% csrf_token %}
