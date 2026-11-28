@@ -57,4 +57,18 @@
       {% endfor %}
     </ul>
   </section>
+  {% for u in friend_users %}
+    <li class="row">
+      <div class="row-user">
+        {% if u.profile.avatar %}
+          <img class="avatar-sm" src="{{ u.profile.avatar.url }}" alt="">
+        {% else %}
+          <div class="avatar-sm avatar-empty">{{ u.username|first|upper }}</div>
+        {% endif %}
+        <a class="row-name" href="{% url 'friends_profile' u.id %}">{{ u.username }}</a>
+      </div>
+    </li>
+  {% empty %}
+    <li class="empty">No friends yet. Share your code to get started.</li>
+  {% endfor %}
 {% endblock %}
